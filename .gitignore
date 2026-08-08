@@ -207,9 +207,7 @@ env/
 # ----------------------------------------------------------------------------
 可运行软件程序文档.md
 docs/
-readme.md
 # 仓库根目录的截图 / 反馈
-/image*.png
 /image*.jpg
 /image*.jpeg
 /image*.gif
@@ -219,7 +217,7 @@ readme.md
 /clipboard-*.png
 /screenshot*.png
 
-# 小程序：本机私网 IP 等隐私配置（每人用自己的，不要进仓库）
+# 小程序：本机私网 IP 
 # 用法：复制 local-config.example.js 为 local-config.js 填入你的局域网 IP，后者被忽略
 #       local-config.example.js 是模板（无真实 IP），应当进仓库
 **/local-config.js
