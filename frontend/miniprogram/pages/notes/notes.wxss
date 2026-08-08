@@ -1,0 +1,288 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 180rpx;
+}
+
+.tab-header {
+  display: flex;
+  background: white;
+  margin-bottom: 20rpx;
+  border-radius: 16rpx;
+}
+
+.tab {
+  flex: 1;
+  padding: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  font-size: 28rpx;
+  color: #666;
+  border-bottom: 4rpx solid transparent;
+  transition: all 0.3s;
+}
+
+.tab-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.tab.active {
+  color: #42b9ff;
+  border-bottom-color: #42b9ff;
+}
+
+.tab.active .tab-icon {
+  filter: hue-rotate(180deg);
+}
+
+.notes-list, .wrong-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.note-item {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.note-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.note-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.note-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.note-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.note-preview {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.note-meta {
+  position: relative;
+  display: inline-block;
+  margin-top: 16rpx;
+}
+
+.note-thumb {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  background: #f8f9fa;
+  display: block;
+}
+
+.note-img-count {
+  position: absolute;
+  right: 8rpx;
+  bottom: 8rpx;
+  padding: 2rpx 12rpx;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 20rpx;
+  border-radius: 16rpx;
+}
+
+.note-tags {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  background: #e8f4fd;
+  color: #42b9ff;
+  border-radius: 16rpx;
+}
+
+.tag-icon {
+  width: 18rpx;
+  height: 18rpx;
+}
+
+.note-actions {
+  margin-left: 16rpx;
+}
+
+.action-btn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 50%;
+}
+
+.action-icon {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.wrong-item {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  display: flex;
+  align-items: center;
+}
+
+.wrong-content {
+  flex: 1;
+  overflow: hidden;
+}
+
+.wrong-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.wrong-subject {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  font-size: 26rpx;
+  padding: 6rpx 16rpx;
+  background: #fff2e8;
+  color: #fa8c16;
+  border-radius: 16rpx;
+}
+
+.subject-icon {
+  width: 18rpx;
+  height: 18rpx;
+}
+
+.wrong-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.wrong-question {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+.wrong-meta {
+  position: relative;
+  display: inline-block;
+  margin-top: 16rpx;
+}
+
+.wrong-thumb {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 12rpx;
+  background: #f8f9fa;
+  display: block;
+}
+
+.wrong-img-count {
+  position: absolute;
+  right: 8rpx;
+  bottom: 8rpx;
+  padding: 2rpx 12rpx;
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  font-size: 20rpx;
+  border-radius: 16rpx;
+}
+
+.wrong-answer {
+  display: flex;
+  background: #f8f9fa;
+  padding: 16rpx;
+  border-radius: 12rpx;
+}
+
+.answer-label {
+  font-size: 26rpx;
+  color: #999;
+  font-weight: 500;
+}
+
+.answer-text {
+  font-size: 26rpx;
+  color: #52c41a;
+  flex: 1;
+}
+
+.wrong-actions {
+  margin-left: 16rpx;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx;
+  background: white;
+  border-radius: 16rpx;
+}
+
+.empty-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.add-btn {
+  position: fixed;
+  bottom: 180rpx;
+  right: 40rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: linear-gradient(135deg, #42b9ff 0%, #64c8ff 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(66, 185, 255, 0.4);
+}
+
+.add-icon {
+  width: 52rpx;
+  height: 52rpx;
+}

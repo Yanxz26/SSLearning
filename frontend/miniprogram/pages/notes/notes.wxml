@@ -1,0 +1,84 @@
+<view class="container">
+  <view class="tab-header">
+    <view class="tab {{activeTab === 'notes' ? 'active' : ''}}" bindtap="setTab" data-tab="notes">
+      <image src="/icons/notes/new-note.png" mode="aspectFit" class="tab-icon"/>
+      <text>笔记</text>
+    </view>
+    <view class="tab {{activeTab === 'wrong' ? 'active' : ''}}" bindtap="setTab" data-tab="wrong">
+      <image src="/icons/notes/new-mistake.png" mode="aspectFit" class="tab-icon"/>
+      <text>错题本</text>
+    </view>
+  </view>
+
+  <view class="notes-list" wx:if="{{activeTab === 'notes'}}">
+    <view class="note-item" wx:for="{{notes}}" wx:key="_key">
+      <view class="note-content" bindtap="viewNote" data-note="{{item}}">
+        <view class="note-header">
+          <text class="note-title">{{item.title}}</text>
+          <text class="note-time">{{item.time || item.updatedAt}}</text>
+        </view>
+        <text class="note-preview">{{item.content}}</text>
+        <view class="note-meta" wx:if="{{item.cover}}">
+          <image class="note-thumb" src="{{item.cover}}" mode="aspectFill"
+            catchtap="previewNoteImage" data-index="{{index}}" data-src="{{item.cover}}"
+            binderror="onNoteImageError" />
+          <text class="note-img-count" wx:if="{{item.images.length > 1}}">{{item.images.length}}张</text>
+        </view>
+        <view class="note-tags">
+          <view class="tag" wx:for="{{item.tags}}" wx:key="index" wx:for-item="tag">
+            <image src="/icons/notes/tag-small.png" mode="aspectFit" class="tag-icon"/>
+            <text>{{tag}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="note-actions">
+        <view class="action-btn" catchtap="deleteNote" data-note="{{item}}">
+          <image src="/icons/notes/delete.png" mode="aspectFit" class="action-icon"/>
+        </view>
+      </view>
+    </view>
+    <view class="empty-state" wx:if="{{notes.length === 0}}">
+      <image src="/icons/notes/new-note.png" mode="aspectFit" class="empty-icon"/>
+      <text class="empty-text">暂无笔记，点击下方按钮创建</text>
+    </view>
+  </view>
+
+  <view class="wrong-list" wx:else>
+    <view class="wrong-item" wx:for="{{wrongQuestions}}" wx:key="_key">
+      <view class="wrong-content" bindtap="viewWrong" data-wrong="{{item}}">
+        <view class="wrong-header">
+          <view class="wrong-subject">
+            <image src="/icons/notes/tag-small.png" mode="aspectFit" class="subject-icon"/>
+            <text>{{item.subject}}</text>
+          </view>
+          <text class="wrong-time">{{item.time || item.updatedAt}}</text>
+        </view>
+        <text class="wrong-question">{{item.question}}</text>
+        <view class="wrong-answer">
+          <text class="answer-label">答案：</text>
+          <text class="answer-text">{{item.answer}}</text>
+        </view>
+        <view class="wrong-meta" wx:if="{{item.cover}}">
+          <image class="wrong-thumb" src="{{item.cover}}" mode="aspectFill"
+            catchtap="previewWrongImage" data-index="{{index}}" data-src="{{item.cover}}"
+            binderror="onWrongImageError" />
+          <text class="wrong-img-count" wx:if="{{item.images.length > 1}}">{{item.images.length}}张</text>
+        </view>
+      </view>
+      <view class="wrong-actions">
+        <view class="action-btn" catchtap="deleteWrong" data-wrong="{{item}}">
+          <image src="/icons/notes/delete.png" mode="aspectFit" class="action-icon"/>
+        </view>
+      </view>
+    </view>
+    <view class="empty-state" wx:if="{{wrongQuestions.length === 0}}">
+      <image src="/icons/notes/new-mistake.png" mode="aspectFit" class="empty-icon"/>
+      <text class="empty-text">暂无错题，点击下方按钮添加</text>
+    </view>
+  </view>
+
+  <view class="add-btn" bindtap="addNoteOrWrong">
+    <image wx:if="activeTab === 'notes'" src="/icons/notes/add-note.png" mode="aspectFit" class="add-icon"/>
+    <image wx:else src="/icons/notes/add-wrong.png" mode="aspectFit" class="add-icon"/>
+  </view>
+</view>

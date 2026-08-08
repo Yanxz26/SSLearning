@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.admin.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.admin.entity.User">
+        <id column="id" property="id"/>
+        <result column="open_id" property="openId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="avatar_url" property="avatarUrl"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="week_start_day" property="weekStartDay"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM users
+        <where>
+            <if test="nickName != null and nickName != ''">
+                AND nick_name LIKE CONCAT('%', #{nickName}, '%')
+            </if>
+            <if test="openId != null and openId != ''">
+                AND open_id = #{openId}
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM users
+        <where>
+            <if test="nickName != null and nickName != ''">
+                AND nick_name LIKE CONCAT('%', #{nickName}, '%')
+            </if>
+            <if test="openId != null and openId != ''">
+                AND open_id = #{openId}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM users WHERE id = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE users
+        <set>
+            <if test="nickName != null">nick_name = #{nickName},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="weekStartDay != null">week_start_day = #{weekStartDay},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteCoursesByUserId">
+        DELETE FROM courses WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteFocusRecordsByUserId">
+        DELETE FROM focus_records WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteNotesByUserId">
+        DELETE FROM notes WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteTodosByUserId">
+        DELETE FROM todos WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteWrongQuestionsByUserId">
+        DELETE FROM wrong_questions WHERE user_id = #{userId}
+    </delete>
+</mapper>

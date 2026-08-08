@@ -1,0 +1,82 @@
+<view class="container">
+  <view class="session-info">
+    <text class="session-text">第 {{currentSession + 1}} / {{maxSessions}} 个番茄钟</text>
+    <view class="session-dots">
+      <view class="dot {{i <= currentSession ? 'active' : ''}}" wx:for="{{maxSessions}}" wx:key="index"></view>
+    </view>
+  </view>
+
+  <view class="timer-section">
+    <view class="timer-ring" style="background: conic-gradient(#42b9ff 0deg, #42b9ff {{progress}}deg, #e8f4fd {{progress}}deg, #e8f4fd 360deg)">
+      <view class="timer-inner">
+        <text class="time">{{formatTime(timeLeft)}}</text>
+        <view class="mode">
+          <image wx:if="isWorking" src="/icons/focus/coffee.png" mode="aspectFit" class="mode-icon"/>
+          <image wx:else src="/icons/focus/coffee.png" mode="aspectFit" class="mode-icon"/>
+          <text>{{isWorking ? '专注中' : '休息中'}}</text>
+        </view>
+        <view class="elapsed-time" wx:if="isRunning">
+          <text>{{isWorking ? '已专注' : '已休息'}} {{elapsedTimeText}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="control-section">
+    <view class="control-btn" bindtap="prevPhase" wx:if="currentSession > 0 || !isWorking">
+      <text class="control-icon">‹‹</text>
+      <text class="control-text">上一步</text>
+    </view>
+    <view class="main-controls">
+      <view class="control-btn reset-btn" bindtap="resetTimer">
+        <image src="/icons/focus/reset.png" mode="aspectFit" class="control-icon"/>
+        <text class="control-text">重置</text>
+      </view>
+      <view class="control-btn primary" bindtap="toggleTimer">
+        <image wx:if="isRunning" src="/icons/focus/pause.png" mode="aspectFit" class="control-icon"/>
+        <image wx:else src="/icons/focus/play.png" mode="aspectFit" class="control-icon"/>
+        <text class="control-text">{{isRunning ? '暂停' : '开始'}}</text>
+      </view>
+    </view>
+    <view class="control-btn" bindtap="skipPhase" wx:if="currentSession < maxSessions">
+      <text class="control-icon">››</text>
+      <text class="control-text">跳过</text>
+    </view>
+    <view class="control-btn" wx:else>
+      <image src="/icons/focus/reset.png" mode="aspectFit" class="control-icon"/>
+      <text class="control-text">完成</text>
+    </view>
+  </view>
+
+  <view class="settings-section">
+    <view class="setting-item">
+      <text class="setting-label">专注时长</text>
+      <view class="time-picker">
+        <view class="picker-btn" bindtap="adjustFocusTime" data-delta="-1">-</view>
+        <text class="picker-value">{{focusMinutes}}分钟</text>
+        <view class="picker-btn" bindtap="adjustFocusTime" data-delta="1">+</view>
+      </view>
+    </view>
+    <view class="setting-item">
+      <text class="setting-label">休息时长</text>
+      <view class="time-picker">
+        <view class="picker-btn" bindtap="adjustBreakTime" data-delta="-1">-</view>
+        <text class="picker-value">{{breakMinutes}}分钟</text>
+        <view class="picker-btn" bindtap="adjustBreakTime" data-delta="1">+</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="stats-section">
+    <view class="stat-card" bindtap="viewHistory">
+      <image src="/icons/stats/daily-bar.png" mode="aspectFit" class="stat-icon"/>
+      <text class="stat-value">{{todayFocus}}</text>
+      <text class="stat-label">今日专注(分钟)</text>
+    </view>
+    <view class="stat-card">
+      <image src="/icons/focus/history.png" mode="aspectFit" class="stat-icon"/>
+      <text class="stat-value">{{totalFocus}}</text>
+      <text class="stat-label">累计专注(小时)</text>
+    </view>
+  </view>
+</view>

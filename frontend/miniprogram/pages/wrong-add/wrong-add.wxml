@@ -1,0 +1,51 @@
+<view class="container">
+  <view class="form-item">
+    <text class="form-label">所属科目</text>
+    <view class="subject-picker">
+      <view class="subject-item {{wrong.subject === sub ? 'selected' : ''}}" 
+        wx:for="{{subjects}}" wx:for-item="sub" wx:key="index" 
+        bindtap="onSubjectChange" data-subject="{{sub}}">{{sub}}</view>
+      <view class="add-subject-btn" bindtap="showCustomSubject">+ 添加科目</view>
+    </view>
+    <view class="custom-subject-input" wx:if="{{showCustomInput}}">
+      <input class="subject-input" placeholder="输入科目名称" value="{{customSubject}}" bindinput="onCustomSubjectInput" bindconfirm="addCustomSubject" />
+      <view class="confirm-btn" bindtap="addCustomSubject">确定</view>
+    </view>
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">错题题目</text>
+    <textarea class="form-textarea" placeholder="请输入错题题目" value="{{wrong.question}}" bindinput="onInput" data-field="question" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">正确答案</text>
+    <input class="form-input" placeholder="请输入正确答案" value="{{wrong.answer}}" bindinput="onInput" data-field="answer" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">答案解析</text>
+    <textarea class="form-textarea" placeholder="请输入答案解析（可选）" value="{{wrong.analysis}}" bindinput="onInput" data-field="analysis" />
+  </view>
+
+  <view class="form-item">
+    <view class="label-row">
+      <text class="form-label">图片</text>
+      <text class="label-hint">{{images.length}}/9</text>
+    </view>
+    <view class="image-grid">
+      <view class="image-cell" wx:for="{{images}}" wx:key="url">
+        <image class="preview-img" src="{{item.display}}" mode="aspectFill"
+          bindtap="previewImage" data-index="{{index}}" />
+        <view class="img-remove" catchtap="removeImage" data-index="{{index}}">×</view>
+        <view class="img-uploading" wx:if="{{item.uploading}}">上传中</view>
+      </view>
+      <view class="image-cell add-cell" wx:if="{{images.length < 9}}" bindtap="chooseImage">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加图片</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="submit-btn" bindtap="saveWrong">保存错题</view>
+</view>

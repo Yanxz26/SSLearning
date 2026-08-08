@@ -1,0 +1,72 @@
+<view class="container">
+  <view class="header">
+    <view class="filter-tabs">
+      <view class="tab {{filter === 'all' ? 'active' : ''}}" bindtap="setFilter" data-filter="all">全部</view>
+      <view class="tab {{filter === 'pending' ? 'active' : ''}}" bindtap="setFilter" data-filter="pending">待办</view>
+      <view class="tab {{filter === 'completed' ? 'active' : ''}}" bindtap="setFilter" data-filter="completed">已完成</view>
+    </view>
+    <view class="sort-btn" bindtap="toggleSort">
+      <image src="/icons/todo/sort-time.png" mode="aspectFit" class="sort-icon-img"/>
+      <text>{{sortByTime ? '按时间' : '按创建'}}</text>
+      <text class="sort-icon">{{sortOrder === 'asc' ? '↑' : '↓'}}</text>
+    </view>
+  </view>
+
+  <view class="task-stats">
+    <view class="stat-item">
+      <text class="stat-num">{{pendingCount}}</text>
+      <text class="stat-text">待办</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{completedCount}}</text>
+      <text class="stat-text">已完成</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-num">{{completionRate}}%</text>
+      <text class="stat-text">完成率</text>
+    </view>
+  </view>
+
+  <view class="task-list">
+    <view class="task-item" wx:for="{{filteredTasks}}" wx:key="id" bindtap="editTask" data-task="{{item}}">
+      <view class="checkbox" catchtap="toggleComplete" data-task="{{item}}">
+        <image wx:if="{{item.completed}}" src="/icons/todo/check-filled.png" mode="aspectFit" class="check-img"/>
+        <image wx:else src="/icons/todo/check-empty.png" mode="aspectFit" class="check-img"/>
+      </view>
+      <view class="task-content">
+        <view class="task-title {{item.completed ? 'completed' : ''}}">{{item.title}}</view>
+        <view class="task-meta">
+          <view class="category-tag" style="background: {{getCategoryColor(item.category)}}">
+            <image src="/icons/todo/tag.png" mode="aspectFit" class="tag-icon"/>
+            <text>{{item.category}}</text>
+          </view>
+          <view class="deadline" wx:if="item.deadline" style="color: {{getDeadlineColor(item.deadline)}}">
+            <image src="/icons/todo/deadline.png" mode="aspectFit" class="deadline-icon"/>
+            <text>{{getDeadlineText(item.deadline)}}</text>
+          </view>
+          <view class="remind-badge" wx:if="item.remind">
+            <image src="/icons/course/reminder.png" mode="aspectFit" class="remind-icon"/>
+          </view>
+        </view>
+      </view>
+      <view class="task-actions">
+        <view class="action-btn edit" catchtap="editTask" data-task="{{item}}">
+          <image src="/icons/course/edit-course.png" mode="aspectFit" class="action-img"/>
+        </view>
+        <view class="action-btn delete" catchtap="deleteTask" data-task="{{item}}">
+          <image src="/icons/course/delete-course.png" mode="aspectFit" class="action-img"/>
+        </view>
+      </view>
+    </view>
+    <view class="empty-state" wx:if="filteredTasks.length === 0">
+      <text class="empty-icon">📋</text>
+      <text class="empty-text">{{filter === 'completed' ? '暂无已完成任务' : '暂无任务，点击下方按钮添加'}}</text>
+    </view>
+  </view>
+
+  <view class="add-btn" bindtap="addTask">
+    <image src="/icons/todo/add-task.png" mode="aspectFit" class="add-icon"/>
+  </view>
+</view>

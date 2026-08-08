@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.admin.mapper.TodoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.admin.entity.Todo">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="category" property="category"/>
+        <result column="deadline" property="deadline"/>
+        <result column="completed" property="completed"/>
+        <result column="remind_enabled" property="remindEnabled"/>
+        <result column="remind_time" property="remindTime"/>
+        <result column="priority" property="priority"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM todos
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="title != null and title != ''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="completed != null">
+                AND completed = #{completed}
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM todos
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="title != null and title != ''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="completed != null">
+                AND completed = #{completed}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM todos WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.admin.entity.Todo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO todos (user_id, title, description, category, deadline, completed, remind_enabled, remind_time, priority)
+        VALUES (#{userId}, #{title}, #{description}, #{category}, #{deadline}, #{completed}, #{remindEnabled}, #{remindTime}, #{priority})
+    </insert>
+
+    <update id="update">
+        UPDATE todos
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="category != null">category = #{category},</if>
+            <if test="deadline != null">deadline = #{deadline},</if>
+            <if test="completed != null">completed = #{completed},</if>
+            <if test="remindEnabled != null">remind_enabled = #{remindEnabled},</if>
+            <if test="remindTime != null">remind_time = #{remindTime},</if>
+            <if test="priority != null">priority = #{priority},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM todos WHERE id = #{id}
+    </delete>
+</mapper>

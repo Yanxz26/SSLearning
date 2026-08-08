@@ -1,0 +1,163 @@
+<view class="container">
+  <view class="header">
+    <view class="header-left">
+      <text class="page-title">课程管理</text>
+      <text class="course-count">共 {{ courses.length }} 门课程</text>
+    </view>
+    <view class="header-right">
+      <view class="action-btn" bindtap="importCourse">
+        <text>批量导入</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="search-bar">
+    <input 
+      class="search-input" 
+      placeholder="搜索课程名称" 
+      value="{{ searchKeyword }}"
+      bindinput="onSearch"
+    />
+    <text class="search-icon">🔍</text>
+  </view>
+
+  <view class="filter-tabs">
+    <view 
+      class="filter-tab {{ currentFilter === 'all' ? 'active' : '' }}"
+      bindtap="setFilter('all')"
+    >
+      <text>全部</text>
+    </view>
+    <view 
+      class="filter-tab {{ currentFilter === 'weekday' ? 'active' : '' }}"
+      bindtap="setFilter('weekday')"
+    >
+      <text>工作日</text>
+    </view>
+    <view 
+      class="filter-tab {{ currentFilter === 'weekend' ? 'active' : '' }}"
+      bindtap="setFilter('weekend')"
+    >
+      <text>周末</text>
+    </view>
+  </view>
+
+  <view class="course-list">
+    <view 
+      class="course-card"
+      v-for="course in filteredCourses"
+      :key="course.id"
+      :style="{ borderLeftColor: course.color }"
+    >
+      <view class="course-info">
+        <view class="course-header">
+          <text class="course-name">{{ course.name }}</text>
+          <text class="course-subject">{{ course.subject }}</text>
+        </view>
+        <text class="course-detail">{{ course.teacher }} · {{ course.classroom }}</text>
+        <text class="course-time">周{{ getWeekDayText(course.day_of_week) }} {{ getPeriodText(course.start_period) }}-{{ getPeriodText(course.end_period) }}</text>
+      </view>
+      <view class="course-actions">
+        <view class="action-item" bindtap="editCourse(course)">
+          <text class="action-icon">✏️</text>
+        </view>
+        <view class="action-item delete" bindtap="deleteCourse(course)">
+          <text class="action-icon">🗑️</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" v-if="filteredCourses.length === 0">
+    <text class="empty-icon">📚</text>
+    <text class="empty-text">暂无课程</text>
+    <view class="add-btn" bindtap="addCourse">
+      <text>+ 添加课程</text>
+    </view>
+  </view>
+
+  <view class="fab" bindtap="addCourse">
+    <text class="fab-icon">+</text>
+  </view>
+
+  <view class="modal-overlay" v-if="showModal" bindtap="closeModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">{{ isEditing ? '编辑课程' : '添加课程' }}</text>
+        <text class="modal-close" bindtap="closeModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <text class="form-label">课程名称</text>
+          <input class="form-input" placeholder="请输入课程名称" value="{{ formData.name }}" bindinput="onFormInput('name')" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">科目</text>
+          <picker mode="selector" range="{{ subjects }}" bindchange="onSubjectChange">
+            <view class="form-picker">
+              <text>{{ formData.subject || '请选择科目' }}</text>
+              <text class="picker-arrow">›</text>
+            </view>
+          </picker>
+        </view>
+        <view class="form-item">
+          <text class="form-label">教师</text>
+          <input class="form-input" placeholder="请输入教师姓名" value="{{ formData.teacher }}" bindinput="onFormInput('teacher')" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">教室</text>
+          <input class="form-input" placeholder="请输入教室位置" value="{{ formData.classroom }}" bindinput="onFormInput('classroom')" />
+        </view>
+        <view class="form-row">
+          <view class="form-item half">
+            <text class="form-label">星期</text>
+            <picker mode="selector" range="{{ weekDays }}" bindchange="onWeekDayChange">
+              <view class="form-picker">
+                <text>{{ weekDays[formData.day_of_week - 1] || '请选择' }}</text>
+                <text class="picker-arrow">›</text>
+              </view>
+            </picker>
+          </view>
+          <view class="form-item half">
+            <text class="form-label">节次</text>
+            <picker mode="selector" range="{{ periods }}" bindchange="onPeriodChange">
+              <view class="form-picker">
+                <text>{{ formData.periodText || '请选择' }}</text>
+                <text class="picker-arrow">›</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="form-item">
+          <text class="form-label">周次范围</text>
+          <input class="form-input" placeholder="如：1-16" value="{{ formData.week_range }}" bindinput="onFormInput('week_range')" />
+        </view>
+        <view class="form-item">
+          <view class="form-switch">
+            <text class="form-label">课前提醒</text>
+            <switch 
+              checked="{{ formData.reminder === 1 }}"
+              bindchange="onReminderChange"
+            />
+          </view>
+          <view class="reminder-time" v-if="formData.reminder === 1">
+            <picker mode="selector" range="{{ reminderTimes }}" bindchange="onReminderTimeChange">
+              <view class="form-picker small">
+                <text>{{ formData.reminder_minutes + '分钟前' }}</text>
+                <text class="picker-arrow">›</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="btn-cancel" bindtap="closeModal">
+          <text>取消</text>
+        </view>
+        <view class="btn-confirm" bindtap="saveCourse">
+          <text>{{ isEditing ? '保存' : '添加' }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

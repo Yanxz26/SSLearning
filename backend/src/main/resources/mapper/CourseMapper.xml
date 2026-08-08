@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.app.mapper.CourseMapper">
+
+    <select id="selectById" resultType="com.example.app.entity.Course">
+        SELECT * FROM courses WHERE id = #{id}
+    </select>
+
+    <select id="selectByUserId" resultType="com.example.app.entity.Course">
+        SELECT * FROM courses WHERE user_id = #{userId} ORDER BY day_of_week, time_slot
+    </select>
+
+    <select id="selectByDayOfWeek" resultType="com.example.app.entity.Course">
+        SELECT * FROM courses WHERE user_id = #{userId} AND day_of_week = #{dayOfWeek} ORDER BY time_slot
+    </select>
+
+    <insert id="insert" parameterType="com.example.app.entity.Course" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO courses (user_id, name, teacher, room, day_of_week, time_slot, 
+            color, remind_enabled, remind_minutes, start_week, end_week, created_at, updated_at)
+        VALUES (#{userId}, #{name}, #{teacher}, #{room}, #{dayOfWeek}, #{timeSlot}, 
+            #{color}, #{remindEnabled}, #{remindMinutes}, #{startWeek}, #{endWeek}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="update" parameterType="com.example.app.entity.Course">
+        UPDATE courses 
+        SET name = #{name}, teacher = #{teacher}, room = #{room}, day_of_week = #{dayOfWeek}, 
+            time_slot = #{timeSlot}, color = #{color}, remind_enabled = #{remindEnabled}, 
+            remind_minutes = #{remindMinutes}, start_week = #{startWeek}, end_week = #{endWeek}, 
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM courses WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByUserId">
+        DELETE FROM courses WHERE user_id = #{userId}
+    </delete>
+
+</mapper>

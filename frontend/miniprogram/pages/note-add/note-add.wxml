@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="form-item">
+    <text class="form-label">笔记标题</text>
+    <input class="form-input" placeholder="请输入笔记标题" value="{{note.title}}" bindinput="onInput" data-field="title" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">笔记内容</text>
+    <textarea class="form-textarea" placeholder="请输入笔记内容" value="{{note.content}}" bindinput="onInput" data-field="content" />
+  </view>
+  
+  <view class="form-item">
+    <view class="label-row">
+      <text class="form-label">图片</text>
+      <text class="label-hint">{{images.length}}/9</text>
+    </view>
+    <view class="image-grid">
+      <view class="image-cell" wx:for="{{images}}" wx:key="url">
+        <image class="preview-img" src="{{item.display}}" mode="aspectFill"
+          bindtap="previewImage" data-index="{{index}}" />
+        <view class="img-remove" catchtap="removeImage" data-index="{{index}}">×</view>
+        <view class="img-uploading" wx:if="{{item.uploading}}">上传中</view>
+      </view>
+      <view class="image-cell add-cell" wx:if="{{images.length < 9}}" bindtap="chooseImage">
+        <text class="add-icon">+</text>
+        <text class="add-text">添加图片</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-item">
+    <text class="form-label">添加标签</text>
+    <view class="selected-tags" wx:if="{{note.tags.length > 0}}">
+      <view class="selected-tag" wx:for="{{note.tags}}" wx:key="index">
+        {{item}}
+        <text class="remove-tag" bindtap="removeTag" data-index="{{index}}">×</text>
+      </view>
+    </view>
+    <view class="tag-picker">
+      <view class="tag-item {{note.tags.includes(tag) ? 'selected' : ''}}" 
+        wx:for="{{defaultTags}}" wx:for-item="tag" wx:key="index" 
+        bindtap="toggleTag" data-tag="{{tag}}">{{tag}}</view>
+      <view class="add-tag-btn" bindtap="showAddTag">+ 添加标签</view>
+    </view>
+    <view class="custom-tag-input" wx:if="{{showTagInput}}">
+      <input class="tag-input" placeholder="输入标签后按确定" value="{{newTag}}" bindinput="onNewTagInput" bindconfirm="addCustomTag" />
+      <view class="confirm-btn" bindtap="addCustomTag">确定</view>
+    </view>
+  </view>
+  
+  <view class="submit-btn" bindtap="saveNote">保存笔记</view>
+</view>

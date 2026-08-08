@@ -1,0 +1,294 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 180rpx;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20rpx;
+  background: white;
+  margin-bottom: 20rpx;
+  border-radius: 16rpx;
+}
+
+.week-nav {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.nav-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 50%;
+}
+
+.nav-icon {
+  font-size: 36rpx;
+  color: #666;
+}
+
+.week-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.week-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.week-number {
+  font-size: 24rpx;
+  color: #42b9ff;
+  font-weight: 500;
+  margin-top: 4rpx;
+}
+
+.view-switch {
+  display: flex;
+  background: #f5f5f5;
+  border-radius: 40rpx;
+  padding: 6rpx;
+}
+
+.switch-btn {
+  padding: 12rpx 24rpx;
+  font-size: 24rpx;
+  color: #666;
+  border-radius: 32rpx;
+  transition: all 0.3s;
+}
+
+.switch-btn.active {
+  background: #42b9ff;
+  color: white;
+}
+
+.schedule-container {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.week-header {
+  display: flex;
+  background: #42b9ff;
+  padding: 16rpx 0;
+}
+
+.time-col {
+  width: 80rpx;
+  flex-shrink: 0;
+}
+
+.day-col {
+  flex: 1;
+  text-align: center;
+}
+
+.day-name {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.day-date {
+  font-size: 28rpx;
+  color: white;
+  font-weight: 600;
+}
+
+.day-date.today {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  margin: 0 auto;
+}
+
+.schedule-scroll {
+  height: 800rpx;
+}
+
+.schedule-body {
+  padding: 16rpx;
+}
+
+.time-row {
+  display: flex;
+}
+
+.time-label {
+  width: 80rpx;
+  flex-shrink: 0;
+  font-size: 22rpx;
+  color: #999;
+  padding: 12rpx 0;
+  line-height: 24rpx;
+}
+
+.course-cols {
+  flex: 1;
+  display: flex;
+}
+
+.course-cell {
+  flex: 1;
+  min-height: 80rpx;
+  padding: 4rpx;
+}
+
+.course-card {
+  border-radius: 8rpx;
+  padding: 8rpx;
+  height: 100%;
+  position: relative;
+}
+
+.course-card .course-name {
+  font-size: 22rpx;
+  color: white;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.course-card .course-info {
+  font-size: 18rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 4rpx;
+}
+
+.course-remind-icon {
+  position: absolute;
+  top: 4rpx;
+  right: 4rpx;
+}
+
+.remind-img {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.today-container {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.today-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.today-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.today-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.course-time {
+  width: 140rpx;
+  font-size: 24rpx;
+  color: #42b9ff;
+  font-weight: 500;
+}
+
+.course-content {
+  flex: 1;
+  padding: 0 20rpx;
+}
+
+.course-content .course-name {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.course-content .course-detail {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 6rpx;
+}
+
+.course-remind {
+  width: 60rpx;
+  text-align: center;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.action-bar {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 24rpx;
+  border-radius: 16rpx;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.action-img {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.action-text {
+  font-size: 22rpx;
+  color: #666;
+}

@@ -1,0 +1,91 @@
+<view class="container">
+  <view class="header">
+    <view class="week-nav">
+      <view class="nav-btn" bindtap="prevWeek">
+        <text class="nav-icon">‹</text>
+      </view>
+      <view class="week-info">
+        <view class="week-title">{{weekTitle}}</view>
+        <view class="week-number" wx:if="{{currentWeek > 0}}">第{{currentWeek}}周</view>
+      </view>
+      <view class="nav-btn" bindtap="nextWeek">
+        <text class="nav-icon">›</text>
+      </view>
+    </view>
+    <view class="view-switch">
+      <view class="switch-btn {{viewMode === 'week' ? 'active' : ''}}" bindtap="switchView" data-view="week">周课表</view>
+      <view class="switch-btn {{viewMode === 'day' ? 'active' : ''}}" bindtap="switchView" data-view="day">今日课表</view>
+    </view>
+  </view>
+
+  <view class="schedule-container" wx:if="{{viewMode === 'week'}}">
+    <view class="week-header">
+      <view class="time-col"></view>
+      <view class="day-col" wx:for="{{weekDays}}" wx:key="index">
+        <view class="day-name">{{item.name}}</view>
+        <view class="day-date {{item.isToday ? 'today' : ''}}">{{item.date}}</view>
+      </view>
+    </view>
+    <scroll-view scroll-y class="schedule-scroll">
+      <view class="schedule-body">
+        <view class="time-row" wx:for="{{timeSlots}}" wx:key="slot">
+          <view class="time-label">{{item.start}}</view>
+          <view class="course-cols">
+            <view class="course-cell" wx:for="{{scheduleMatrix[item.slot]}}" wx:for-item="course" wx:key="index">
+              <view 
+                class="course-card" 
+                wx:if="{{course}}" 
+                style="background: {{course.color}}"
+                bindtap="viewCourseDetail"
+                data-course="{{course}}">
+                <view class="course-name">{{course.name}}</view>
+                <view class="course-info">{{course.teacher}} · {{course.room}}</view>
+                <view class="course-remind-icon" wx:if="{{course.remind}}">
+                  <image src="/icons/course/reminder.png" mode="aspectFit" class="remind-img"/>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="today-container" wx:else>
+    <view class="today-header">
+      <view class="today-title">今日课程</view>
+      <view class="today-date">{{todayDate}}</view>
+    </view>
+    <view class="course-list">
+      <view class="course-item" wx:for="{{todayCourses}}" wx:key="id" bindtap="viewCourseDetail" data-course="{{item}}">
+        <view class="course-time">{{item.startTime}} - {{item.endTime}}</view>
+        <view class="course-content">
+          <view class="course-name">{{item.name}}</view>
+          <view class="course-detail">{{item.teacher}} · {{item.room}}</view>
+        </view>
+        <view class="course-remind" wx:if="item.remind">
+          <image src="/icons/course/reminder.png" mode="aspectFit" class="remind-img"/>
+        </view>
+      </view>
+      <view class="empty-state" wx:if="todayCourses.length === 0">
+        <text class="empty-icon">📚</text>
+        <text class="empty-text">今天没有课程</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="action-bar">
+    <view class="action-btn" bindtap="addCourse">
+      <image src="/icons/course/add-course.png" mode="aspectFit" class="action-img"/>
+      <text class="action-text">添加课程</text>
+    </view>
+    <view class="action-btn" bindtap="importCourse">
+      <image src="/icons/course/import-course.png" mode="aspectFit" class="action-img"/>
+      <text class="action-text">批量导入</text>
+    </view>
+    <view class="action-btn" bindtap="termConfig">
+      <image src="/icons/course/semester-config.png" mode="aspectFit" class="action-img"/>
+      <text class="action-text">学期配置</text>
+    </view>
+  </view>
+</view>

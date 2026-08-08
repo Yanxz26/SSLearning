@@ -1,0 +1,129 @@
+<view class="container">
+  <view class="summary-cards">
+    <view class="summary-card">
+      <image src="/icons/stats/daily-bar.png" mode="aspectFit" class="card-icon"/>
+      <text class="card-value">{{totalFocusHours}}</text>
+      <text class="card-label">本周专注(小时)</text>
+    </view>
+    <view class="summary-card">
+      <image src="/icons/stats/pie-chart.png" mode="aspectFit" class="card-icon"/>
+      <text class="card-value">{{taskCompletionRate}}%</text>
+      <text class="card-label">任务完成率</text>
+    </view>
+    <view class="summary-card">
+      <image src="/icons/notes/new-note.png" mode="aspectFit" class="card-icon"/>
+      <text class="card-value">{{notesCount}}</text>
+      <text class="card-label">笔记数</text>
+    </view>
+    <view class="summary-card">
+      <image src="/icons/notes/new-mistake.png" mode="aspectFit" class="card-icon"/>
+      <text class="card-value">{{wrongCount}}</text>
+      <text class="card-label">错题数</text>
+    </view>
+  </view>
+
+  <view class="chart-section">
+    <view class="section-header">
+      <view class="section-title-wrap">
+        <image src="/icons/stats/daily-bar.png" mode="aspectFit" class="section-icon"/>
+        <text class="section-title">每日专注时长</text>
+      </view>
+      <view class="time-switch">
+        <view class="switch-btn {{timeRange === 'week' ? 'active' : ''}}" bindtap="setTimeRange" data-range="week">本周</view>
+        <view class="switch-btn {{timeRange === 'month' ? 'active' : ''}}" bindtap="setTimeRange" data-range="month">本月</view>
+      </view>
+    </view>
+    <view class="bar-chart">
+      <view class="chart-bars" wx:if="{{!isWeeklyView}}">
+        <view class="bar-item" wx:for="{{dailyFocus}}" wx:key="index">
+          <view class="bar-container">
+            <view class="bar" style="height: {{item.percentage}}%"></view>
+          </view>
+          <text class="bar-label">{{item.day}}</text>
+          <text class="bar-value">{{item.minutes}}min</text>
+        </view>
+      </view>
+      <view class="week-chart" wx:else>
+        <view class="week-row" wx:for="{{dailyFocus}}" wx:key="index">
+          <view class="bar-item week-item" wx:for="{{item}}" wx:for-item="day" wx:key="date">
+            <view class="bar-container">
+              <view class="bar" style="height: {{day.percentage}}%"></view>
+            </view>
+            <text class="bar-label">{{day.day}}</text>
+            <text class="bar-value">{{day.minutes}}min</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="chart-section">
+    <view class="section-header">
+      <view class="section-title-wrap">
+        <image src="/icons/stats/week-chart.png" mode="aspectFit" class="section-icon"/>
+        <text class="section-title">任务完成趋势</text>
+      </view>
+    </view>
+    <view class="line-chart">
+      <view class="chart-grid">
+        <view class="grid-line" wx:for="{{4}}" wx:key="index"></view>
+      </view>
+      <view class="chart-line">
+          <svg class="line-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="{{linePath}}" fill="none" stroke="#42b9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <view class="line-point" wx:for="{{taskTrend}}" wx:key="index" 
+            style="left: {{item.x}}%; bottom: {{item.y}}%">
+            <view class="point-dot"></view>
+            <view class="point-value">{{item.value}}%</view>
+          </view>
+        </view>
+      <view class="chart-labels">
+        <text class="chart-label" wx:for="{{taskTrend}}" wx:key="index">{{item.day}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-section">
+    <view class="section-header">
+      <text class="section-title">学习详情</text>
+    </view>
+    <view class="detail-list">
+      <view class="detail-item">
+        <view class="detail-icon-wrap">
+          <image src="/icons/stats/daily-bar.png" mode="aspectFit" class="detail-icon"/>
+        </view>
+        <text class="detail-label">今日专注</text>
+        <text class="detail-value">{{todayFocus}}分钟</text>
+      </view>
+      <view class="detail-item">
+        <view class="detail-icon-wrap">
+          <image src="/icons/todo/check-empty.png" mode="aspectFit" class="detail-icon"/>
+        </view>
+        <text class="detail-label">本周任务</text>
+        <text class="detail-value">{{weekTasks}}项</text>
+      </view>
+      <view class="detail-item">
+        <view class="detail-icon-wrap">
+          <image src="/icons/todo/check-filled.png" mode="aspectFit" class="detail-icon"/>
+        </view>
+        <text class="detail-label">已完成任务</text>
+        <text class="detail-value">{{completedTasks}}项</text>
+      </view>
+      <view class="detail-item">
+        <view class="detail-icon-wrap">
+          <image src="/icons/notes/new-note.png" mode="aspectFit" class="detail-icon"/>
+        </view>
+        <text class="detail-label">新增笔记</text>
+        <text class="detail-value">{{newNotes}}篇</text>
+      </view>
+      <view class="detail-item">
+        <view class="detail-icon-wrap">
+          <image src="/icons/notes/new-mistake.png" mode="aspectFit" class="detail-icon"/>
+        </view>
+        <text class="detail-label">新增错题</text>
+        <text class="detail-value">{{newWrong}}道</text>
+      </view>
+    </view>
+  </view>
+</view>

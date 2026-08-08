@@ -1,0 +1,180 @@
+.container {
+  padding: 20rpx;
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+.header {
+  padding: 32rpx 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.stats-card {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #42b9ff 0%, #64c8ff 100%);
+  border-radius: 20rpx;
+  padding: 40rpx 20rpx;
+  margin-bottom: 24rpx;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: white;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 8rpx;
+}
+
+.section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.section-header {
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.week-chart {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 200rpx;
+  padding: 20rpx 0;
+}
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.chart-bar {
+  width: 40rpx;
+  background: linear-gradient(to top, #42b9ff 0%, #64c8ff 100%);
+  border-radius: 20rpx 20rpx 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+  position: relative;
+  min-height: 20rpx;
+}
+
+.bar-value {
+  font-size: 18rpx;
+  color: white;
+  font-weight: 500;
+  padding-top: 8rpx;
+}
+
+.chart-label {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.history-item {
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.history-date {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.date-text {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.weekday-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.history-info {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.info-item {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.info-divider {
+  color: #ddd;
+}
+
+.history-progress {
+  height: 8rpx;
+  background: #e8f4fd;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 100%;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #42b9ff 0%, #64c8ff 100%);
+  border-radius: 4rpx;
+  transition: width 0.3s ease;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}

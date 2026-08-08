@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.mapper.TermConfigMapper">
+
+    <select id="selectById" parameterType="Long" resultType="com.example.app.entity.TermConfig">
+        SELECT * FROM term_configs WHERE id = #{id}
+    </select>
+
+    <select id="selectByUserId" parameterType="Long" resultType="com.example.app.entity.TermConfig">
+        SELECT * FROM term_configs WHERE user_id = #{userId} ORDER BY updated_at DESC
+    </select>
+
+    <select id="selectLatestByUserId" parameterType="Long" resultType="com.example.app.entity.TermConfig">
+        SELECT * FROM term_configs WHERE user_id = #{userId} ORDER BY updated_at DESC LIMIT 1
+    </select>
+
+    <insert id="insert" parameterType="com.example.app.entity.TermConfig" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO term_configs (user_id, term_name, start_date, end_date, total_weeks, created_at, updated_at)
+        VALUES (#{userId}, #{termName}, #{startDate}, #{endDate}, #{totalWeeks}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="update" parameterType="com.example.app.entity.TermConfig">
+        UPDATE term_configs SET
+        term_name = #{termName},
+        start_date = #{startDate},
+        end_date = #{endDate},
+        total_weeks = #{totalWeeks},
+        updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM term_configs WHERE id = #{id}
+    </delete>
+
+</mapper>

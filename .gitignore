@@ -1,0 +1,226 @@
+# ============================================================================
+# SSLearning 项目 .gitignore
+
+# ----------------------------------------------------------------------------
+# IDE & Editor
+# ----------------------------------------------------------------------------
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.project
+.classpath
+.settings/
+.factorypath
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+nbproject/
+nb-configuration.xml
+
+
+# ----------------------------------------------------------------------------
+# Java / Maven / Gradle 构建产物
+# ----------------------------------------------------------------------------
+target/
+build/
+out/
+dist/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+replay_pid*
+.mvn/
+mvnw
+mvnw.cmd
+.gradle/
+*.log
+backend/run.log
+
+
+# ----------------------------------------------------------------------------
+# Node.js / Frontend
+# ----------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.yarn-integrity
+.pnpm-store/
+coverage/
+.nyc_output/
+.parcel-cache/
+.next/
+.nuxt/
+.cache/
+.eslintcache
+.stylelintcache
+.npmrc
+.yarnrc
+frontend/package-lock.json
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+
+# ----------------------------------------------------------------------------
+# WeChat Mini Program 开发者工具产物
+# ----------------------------------------------------------------------------
+miniprogram_npm/
+project.config.json
+project.private.config.json
+project.private.config.json.tmp
+miniprogram/.miniprogram/
+sitemap.json.bak
+*.wxapkg
+
+
+# ----------------------------------------------------------------------------
+# 操作系统文件
+# ----------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Thumbs.db:encryptable
+desktop.ini
+$RECYCLE.BIN/
+ehthumbs_vista.db
+
+
+# ----------------------------------------------------------------------------
+# 压缩包 & 归档
+# ----------------------------------------------------------------------------
+*.zip
+*.rar
+*.7z
+*.tar.gz
+*.tgz
+*.bak
+*.tmp
+*.temp
+*.orig
+*.rej
+
+
+# ----------------------------------------------------------------------------
+# 环境变量 & 密钥文件
+# ----------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.pfx
+*.keystore
+secrets.json
+secrets.yaml
+secrets.yml
+credentials.json
+credentials.yaml
+application-local.yml
+application-*-local.yml
+*-local.yaml
+*-local.yml
+
+
+# ----------------------------------------------------------------------------
+# 数据库相关
+# ----------------------------------------------------------------------------
+*.db
+*.sqlite
+*.sqlite3
+*.h2
+*.mdb
+
+
+# ----------------------------------------------------------------------------
+# 后端运行期数据 & 临时构建产物
+# ----------------------------------------------------------------------------
+uploads/
+backend/uploads/
+**/uploads/
+
+# 重打包 / 故障排查时建的临时目录
+backend/mfx/
+backend/mfx*/
+backend/ymlcheck/
+backend/temp/
+backend/build_out/
+backend/staging/
+backend/manifest.txt
+backend/backend-run.log
+
+# 后端 / 启动脚本
+backend/start
+backend/stop
+backend/start.js
+backend/stop.js
+backend/test_*.js
+# 一次性构建/重打包辅助脚本
+backend/fix_manifest.py
+backend/*.pid
+*.pid
+nohup.out
+# 注意：backend/insert_notes.js、backend/insert_wrong_questions.js 是数据导入脚本，必须进仓库
+
+
+# ----------------------------------------------------------------------------
+# 前端 / 小程序构建产物
+# ----------------------------------------------------------------------------
+miniprogram_npm/
+miniprogram/.miniprogram/
+
+
+# ----------------------------------------------------------------------------
+# Python 工具链
+# ----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+
+# ----------------------------------------------------------------------------
+# 本仓库专属：内部设计文档 & 敏感截图 & AI 工作记忆
+# ----------------------------------------------------------------------------
+可运行软件程序文档.md
+docs/
+readme.md
+# 仓库根目录的截图 / 反馈
+/image*.png
+/image*.jpg
+/image*.jpeg
+/image*.gif
+/image*.bmp
+/image*.webp
+/Clipboard_Screenshot*.png
+/clipboard-*.png
+/screenshot*.png
+
+# 小程序：本机私网 IP 等隐私配置（每人用自己的，不要进仓库）
+# 用法：复制 local-config.example.js 为 local-config.js 填入你的局域网 IP，后者被忽略
+#       local-config.example.js 是模板（无真实 IP），应当进仓库
+**/local-config.js
+**/local-config.local.js

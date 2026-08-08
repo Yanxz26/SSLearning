@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="header">
+    <view class="date-nav">
+      <view class="nav-btn" bindtap="prevDay">
+        <text>‹</text>
+      </view>
+      <view class="date-info">
+        <text class="date-title">{{ currentDate }}</text>
+        <text class="date-weekday">{{ currentWeekday }}</text>
+      </view>
+      <view class="nav-btn" bindtap="nextDay">
+        <text>›</text>
+      </view>
+    </view>
+    <view class="today-btn" bindtap="goToday">
+      <text>今天</text>
+    </view>
+  </view>
+
+  <view class="schedule-content">
+    <view class="time-axis">
+      <view class="time-item" v-for="time in timeSlots" :key="time">
+        <text>{{ time }}</text>
+      </view>
+    </view>
+    <view class="events-area">
+      <view class="event-line" v-for="(time, index) in timeSlots" :key="index">
+        <view 
+          class="event-card"
+          v-for="course in getCoursesAtTime(time)"
+          :key="course.id"
+          :style="{ backgroundColor: course.color + '20', borderLeftColor: course.color }"
+        >
+          <text class="event-name">{{ course.name }}</text>
+          <text class="event-detail">{{ course.classroom }} · {{ course.teacher }}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-tip" v-if="dayCourses.length === 0">
+    <text class="empty-icon">📅</text>
+    <text class="empty-text">当天没有课程</text>
+  </view>
+</view>

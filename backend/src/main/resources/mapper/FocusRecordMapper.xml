@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.app.mapper.FocusRecordMapper">
+
+    <select id="selectById" resultType="com.example.app.entity.FocusRecord">
+        SELECT * FROM focus_records WHERE id = #{id}
+    </select>
+
+    <select id="selectByUserId" resultType="com.example.app.entity.FocusRecord">
+        SELECT * FROM focus_records WHERE user_id = #{userId} ORDER BY date DESC, start_time DESC
+    </select>
+
+    <select id="selectByUserIdAndDate" resultType="com.example.app.entity.FocusRecord">
+        SELECT * FROM focus_records WHERE user_id = #{userId} AND date = #{date} ORDER BY start_time
+    </select>
+
+    <insert id="insert" parameterType="com.example.app.entity.FocusRecord">
+        INSERT INTO focus_records (user_id, focus_duration, break_duration, date, 
+            start_time, end_time, created_at)
+        VALUES (#{userId}, #{focusDuration}, #{breakDuration}, #{date}, 
+            #{startTime}, #{endTime}, #{createdAt})
+    </insert>
+
+    <update id="update" parameterType="com.example.app.entity.FocusRecord">
+        UPDATE focus_records 
+        SET focus_duration = #{focusDuration}, break_duration = #{breakDuration}, 
+            date = #{date}, start_time = #{startTime}, end_time = #{endTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM focus_records WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByUserId">
+        DELETE FROM focus_records WHERE user_id = #{userId}
+    </delete>
+
+    <select id="sumFocusDurationByUserIdAndDateRange" resultType="java.lang.Integer">
+        SELECT COALESCE(SUM(focus_duration), 0) FROM focus_records 
+        WHERE user_id = #{userId} AND date BETWEEN #{startDate} AND #{endDate}
+    </select>
+
+</mapper>

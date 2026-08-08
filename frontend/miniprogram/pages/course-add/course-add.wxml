@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="form-item">
+    <text class="form-label">课程名称</text>
+    <input class="form-input" placeholder="请输入课程名称" value="{{course.name}}" bindinput="onInput" data-field="name" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">授课教师</text>
+    <input class="form-input" placeholder="请输入教师姓名" value="{{course.teacher}}" bindinput="onInput" data-field="teacher" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">上课地点</text>
+    <input class="form-input" placeholder="请输入教室位置" value="{{course.room}}" bindinput="onInput" data-field="room" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">上课时间</text>
+    <view class="time-picker">
+      <picker mode="selector" range="{{weekDays}}" bindchange="onDayChange">
+        <view class="picker-value">{{weekDays[course.day] || '选择星期'}}</view>
+      </picker>
+      <picker mode="selector" range="{{timeSlots}}" bindchange="onSlotChange">
+        <view class="picker-value">{{timeSlots[course.slot] || '选择节次'}}</view>
+      </picker>
+    </view>
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">课前提醒</text>
+    <switch class="form-switch" checked="{{course.remind}}" bindchange="onRemindChange" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">课程颜色</text>
+    <view class="color-picker">
+      <view class="color-item {{course.color === item ? 'selected' : ''}}" 
+        wx:for="{{colors}}" wx:key="index" 
+        style="background-color: {{item}}" bindtap="onColorChange" data-color="{{item}}"></view>
+    </view>
+  </view>
+  
+  <view class="submit-btn" bindtap="saveCourse">保存课程</view>
+</view>

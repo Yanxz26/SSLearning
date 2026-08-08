@@ -1,0 +1,56 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /admin-api
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  datasource:
+    # ============================================================================
+    # 数据库连接 —— 全部走环境变量，本配置不提供默认值，避免任何敏感信息进仓库
+    #
+    #   DB_URL       jdbc:mysql://host:3306/learning_assistant?...
+    #   DB_USERNAME  数据库账号
+    #   DB_PASSWORD  数据库密码（必填）
+    # ============================================================================
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.admin.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+# ============================================================================
+# 管理员账号（管理后台登录用）
+# 用户名/密码都从环境变量读取，生产环境必须显式注入；没有默认值。
+# 密码必须是 BCrypt 哈希（明文密码由 BCryptPasswordEncoder.matches() 校验会失败）。
+#
+# 本地开发示例：
+#   ADMIN_USERNAME=admin
+#   ADMIN_PASSWORD='$2a$10$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+#
+# 生成 BCrypt 哈希（任选其一）：
+#   1) Java 代码：new BCryptPasswordEncoder().encode("你的密码")
+#   2) 在线工具（仅测试用，生产请走方案 1）
+#
+# 也可以用 SPRING_APPLICATION_JSON 一次性注入多个：
+#   SPRING_APPLICATION_JSON='{"app":{"security":{"admin-username":"admin","admin-password":"$2a$10$..."}}}'
+# ============================================================================
+app:
+  security:
+    admin-username: ${ADMIN_USERNAME}
+    admin-password: ${ADMIN_PASSWORD}
+
+logging:
+  level:
+    com.example.admin: DEBUG

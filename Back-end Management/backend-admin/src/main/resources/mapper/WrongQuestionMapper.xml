@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.admin.mapper.WrongQuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.admin.entity.WrongQuestion">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="subject" property="subject"/>
+        <result column="question" property="question"/>
+        <result column="answer" property="answer"/>
+        <result column="analysis" property="analysis"/>
+        <result column="tags" property="tags"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM wrong_questions
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="subject != null and subject != ''">
+                AND subject = #{subject}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (question LIKE CONCAT('%', #{keyword}, '%') OR answer LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM wrong_questions
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="subject != null and subject != ''">
+                AND subject = #{subject}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (question LIKE CONCAT('%', #{keyword}, '%') OR answer LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM wrong_questions WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.admin.entity.WrongQuestion" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO wrong_questions (user_id, subject, question, answer, analysis, tags)
+        VALUES (#{userId}, #{subject}, #{question}, #{answer}, #{analysis}, #{tags})
+    </insert>
+
+    <update id="update">
+        UPDATE wrong_questions
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="subject != null">subject = #{subject},</if>
+            <if test="question != null">question = #{question},</if>
+            <if test="answer != null">answer = #{answer},</if>
+            <if test="analysis != null">analysis = #{analysis},</if>
+            <if test="tags != null">tags = #{tags},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM wrong_questions WHERE id = #{id}
+    </delete>
+</mapper>

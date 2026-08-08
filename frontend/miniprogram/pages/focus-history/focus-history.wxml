@@ -1,0 +1,62 @@
+<view class="container">
+  <view class="header">
+    <text class="title">专注记录</text>
+  </view>
+
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-value">{{totalMinutes}}</text>
+      <text class="stat-label">累计专注(分钟)</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{totalHours}}</text>
+      <text class="stat-label">累计专注(小时)</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{totalSessions}}</text>
+      <text class="stat-label">完成番茄钟</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">本周记录</text>
+    </view>
+    <view class="week-chart">
+      <view class="chart-item" wx:for="{{weekData}}" wx:key="date">
+        <view class="chart-bar" style="height: {{item.percentage}}%">
+          <view class="bar-value">{{item.minutes}}</view>
+        </view>
+        <text class="chart-label">{{item.dayName}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">历史记录</text>
+    </view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{historyData}}" wx:key="date">
+        <view class="history-date">
+          <text class="date-text">{{item.dateStr}}</text>
+          <text class="weekday-text">{{item.weekday}}</text>
+        </view>
+        <view class="history-info">
+          <text class="info-item">{{item.sessions}}个番茄钟</text>
+          <text class="info-divider">|</text>
+          <text class="info-item">{{item.minutes}}分钟</text>
+        </view>
+        <view class="history-progress">
+          <view class="progress-bar">
+            <view class="progress-fill" style="width: {{item.progress}}%"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="empty-state" wx:if="historyData.length === 0">
+      <text class="empty-icon">📊</text>
+      <text class="empty-text">暂无专注记录</text>
+    </view>
+  </view>
+</view>

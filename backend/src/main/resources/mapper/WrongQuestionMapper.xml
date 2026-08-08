@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.app.mapper.WrongQuestionMapper">
+
+    <select id="selectById" resultType="com.example.app.entity.WrongQuestion">
+        SELECT * FROM wrong_questions WHERE id = #{id}
+    </select>
+
+    <select id="selectByUserId" resultType="com.example.app.entity.WrongQuestion">
+        SELECT * FROM wrong_questions WHERE user_id = #{userId} ORDER BY updated_at DESC
+    </select>
+
+    <select id="selectByUserIdAndSubject" resultType="com.example.app.entity.WrongQuestion">
+        SELECT * FROM wrong_questions WHERE user_id = #{userId} AND subject = #{subject} ORDER BY updated_at DESC
+    </select>
+
+    <insert id="insert" parameterType="com.example.app.entity.WrongQuestion" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO wrong_questions (user_id, subject, question, answer, analysis, tags, images, created_at, updated_at)
+        VALUES (#{userId}, #{subject}, #{question}, #{answer}, #{analysis}, #{tags}, #{images}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="update" parameterType="com.example.app.entity.WrongQuestion">
+        UPDATE wrong_questions
+        SET subject = #{subject}, question = #{question}, answer = #{answer},
+            analysis = #{analysis}, tags = #{tags}, images = #{images}, updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM wrong_questions WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteByUserId">
+        DELETE FROM wrong_questions WHERE user_id = #{userId}
+    </delete>
+
+</mapper>

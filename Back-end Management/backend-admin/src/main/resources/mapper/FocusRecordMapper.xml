@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.admin.mapper.FocusRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.admin.entity.FocusRecord">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="focus_duration" property="focusDuration"/>
+        <result column="break_duration" property="breakDuration"/>
+        <result column="date" property="date"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM focus_records
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND date &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM focus_records
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="startDate != null and startDate != ''">
+                AND date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null and endDate != ''">
+                AND date &lt;= #{endDate}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM focus_records WHERE id = #{id}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM focus_records WHERE id = #{id}
+    </delete>
+</mapper>

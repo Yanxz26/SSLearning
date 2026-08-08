@@ -1,0 +1,58 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/todo/todo",
+    "pages/focus/focus",
+    "pages/focus-history/focus-history",
+    "pages/notes/notes",
+    "pages/stats/stats",
+    "pages/todo-add/todo-add",
+    "pages/course-add/course-add",
+    "pages/note-add/note-add",
+    "pages/wrong-add/wrong-add"
+  ],
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#42b9ff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "课表",
+        "iconPath": "icons/tab/schedule.png",
+        "selectedIconPath": "icons/tab/schedule-active.png"
+      },
+      {
+        "pagePath": "pages/todo/todo",
+        "text": "待办",
+        "iconPath": "icons/tab/todo.png",
+        "selectedIconPath": "icons/tab/todo-active.png"
+      },
+      {
+        "pagePath": "pages/focus/focus",
+        "text": "专注",
+        "iconPath": "icons/tab/focus.png",
+        "selectedIconPath": "icons/tab/focus-active.png"
+      },
+      {
+        "pagePath": "pages/notes/notes",
+        "text": "笔记",
+        "iconPath": "icons/tab/notes.png",
+        "selectedIconPath": "icons/tab/notes-active.png"
+      },
+      {
+        "pagePath": "pages/stats/stats",
+        "text": "统计",
+        "iconPath": "icons/tab/stats.png",
+        "selectedIconPath": "icons/tab/stats-active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "智能学习助手",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2"
+}

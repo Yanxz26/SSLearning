@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.admin.mapper.TermConfigMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.admin.entity.TermConfig">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="term_name" property="termName"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="total_weeks" property="totalWeeks"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        SELECT * FROM term_configs
+        ORDER BY id DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*) FROM term_configs
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT * FROM term_configs WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.admin.entity.TermConfig" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO term_configs (user_id, term_name, start_date, end_date, total_weeks)
+        VALUES (#{userId}, #{termName}, #{startDate}, #{endDate}, #{totalWeeks})
+    </insert>
+
+    <update id="update">
+        UPDATE term_configs
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="termName != null">term_name = #{termName},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="totalWeeks != null">total_weeks = #{totalWeeks},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM term_configs WHERE id = #{id}
+    </delete>
+</mapper>

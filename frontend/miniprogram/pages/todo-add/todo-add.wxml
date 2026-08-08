@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="form-item">
+    <text class="form-label">任务标题</text>
+    <input class="form-input" placeholder="请输入任务标题" value="{{task.title}}" bindinput="onInput" data-field="title" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">任务分类</text>
+    <view class="category-picker">
+      <view class="category-item {{task.category === item ? 'selected' : ''}}" 
+        wx:for="{{categories}}" wx:key="index" 
+        bindtap="onCategoryChange" data-category="{{item}}">{{item}}</view>
+    </view>
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">截止时间</text>
+    <picker mode="date" bindchange="onDateChange">
+      <view class="picker-value">{{task.deadline || '选择截止日期'}}</view>
+    </picker>
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">任务描述</text>
+    <textarea class="form-textarea" placeholder="请输入任务描述（可选）" value="{{task.description}}" bindinput="onInput" data-field="description" />
+  </view>
+  
+  <view class="form-item">
+    <text class="form-label">截止提醒</text>
+    <switch class="form-switch" checked="{{task.remind}}" bindchange="onRemindChange" />
+  </view>
+  
+  <view class="submit-btn" bindtap="saveTask">保存任务</view>
+</view>
